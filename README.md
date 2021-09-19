@@ -1,4 +1,4 @@
-# tracker-habbits-vue
+# tracker-habits-vue
 
 ## Project setup
 ```
