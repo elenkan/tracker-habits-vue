@@ -1,11 +1,13 @@
 <template>
-  <div id="app">
-    <Header/>
-    <mood-list v-if="showMoodList"/>
-    <div class="content">
-      <router-view/>
+  <v-app>
+    <div id="app">
+      <Header/>
+      <mood-list v-if="showMoodList"/>
+      <div class="content">
+        <router-view/>
+      </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -55,6 +57,7 @@ export default {
 }
 
 html, body {
+  width: 100vw;
   height: 100vh;
 }
 
@@ -69,7 +72,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 }
 
@@ -78,7 +81,7 @@ ul {
 }
 
 .content {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;

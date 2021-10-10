@@ -16,6 +16,7 @@ export default {
   components: { HabitItem },
   computed: {
     habitsList() {
+      console.log(this.$store.getters.getHabitsList)
       return this.$store.getters.getHabitsList;
     }
   }

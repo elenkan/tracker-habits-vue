@@ -9,6 +9,10 @@
             :style="{'background-color': day.color, 'border': day.color ? '1px solid transparent' :'1px solid #89ccc5'}">
       </span>
     </div>
+    <div class="habit-item__button-group">
+      <v-btn icon @click="changeHabit"><v-icon>mdi-pencil</v-icon></v-btn>
+      <v-btn icon @click="deleteHabit(habit.id)"><v-icon>mdi-delete</v-icon></v-btn>
+    </div>
   </li>
 </template>
 
@@ -30,6 +34,9 @@ export default {
   computed: {
     progressData() {
       return this.$store.getters.getProgressData;
+    },
+    habitsList() {
+      return this.$store.getters.getHabitsList;
     },
     daysList() {
       const list = new Array(21).fill({color: ""});
@@ -67,7 +74,7 @@ export default {
         const progressItem = {
           name: this.habit.name,
           value: progressValue,
-          key: Math.random() * this.daysList.length,
+          key: this.habit.id,
           colorsValue: this.getColorValueArray(this.colorsValue)
         };
 
@@ -93,6 +100,14 @@ export default {
       this.componentKey += 1;
       this.getProgressValue();
       this.getMoodValue();
+    },
+    changeHabit() {
+      this.$store.commit("setChangeableHabit", this.habit);
+      this.$router.push({name: "createHabit"});
+    },
+    deleteHabit(habitId) {
+      const filterList= this.habitsList.filter(item => item.id !== habitId);
+      this.$store.commit("setHabitsList", filterList);
     }
   }
 }

@@ -24,15 +24,19 @@
           borderless
           group>
         <v-btn value="21"
-               class="habit-form__button">21 день</v-btn>
+               class="habit-form__button">21 день
+        </v-btn>
         <v-btn
             value="30"
-            class="habit-form__button">30 дней</v-btn>
+            class="habit-form__button">30 дней
+        </v-btn>
       </v-btn-toggle>
     </div>
     <v-btn class="habit-form__button habit-form__button--save"
            color="#e2958c"
-           @click="saveHabit">Сохранить</v-btn>
+           depressed
+           @click="saveHabit">Сохранить
+    </v-btn>
   </v-form>
 </template>
 
@@ -46,7 +50,16 @@ export default {
       countDays: "21"
     }
   },
+  beforeMount() {
+    if (this.changeableHabit) {
+      this.name = this.changeableHabit.name;
+      this.description = this.changeableHabit.description;
+    }
+  },
   computed: {
+    changeableHabit() {
+      return this.$store.getters.getChangeableHabit;
+    },
     habitList() {
       return this.$store.getters.getHabitsList;
     }
@@ -56,10 +69,20 @@ export default {
       const habit = {
         name: this.name,
         description: this.description,
-        id: `${Math.random() * 2 * Math.random()}`
+        id: this.changeableHabit ? this.changeableHabit.id : `${Math.random() * 2 * Math.random()}`
       };
-      this.habitList.push(habit);
-      this.$refs.habitForm.reset();
+      if (this.changeableHabit) {
+        const change = this.habitList.find(item => item.id === this.changeableHabit.id);
+        for (let key in change) {
+          change.name = habit.name;
+          change.description = habit.description;
+        }
+        this.$store.commit("setChangeableHabit", null);
+        this.$router.push({name: "habitsList"})
+      } else {
+        this.habitList.push(habit);
+        this.$refs.habitForm.reset();
+      }
     }
   }
 }

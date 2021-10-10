@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <v-btn class="home-page__btn" @click="goToHabitForm">Начнем!</v-btn>
+    <p></p>
   </div>
 </template>
 
@@ -8,9 +8,9 @@
 export default {
   name: "HomePage",
   methods: {
-    goToHabitForm() {
-      this.$router.push({name: "createHabit"});
-    }
+    // goToHabitForm() {
+    //   this.$store.commit("setShowAuthForm", true);
+    // }
   }
 }
 </script>

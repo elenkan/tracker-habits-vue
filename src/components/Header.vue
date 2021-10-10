@@ -13,15 +13,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+      <authorization-form v-if="isHomePage"/>
 
     </v-toolbar>
 
@@ -62,8 +54,13 @@
 </template>
 
 <script>
+import AuthorizationForm from "./AuthorizationForm";
+
 export default {
   name: "Header",
+  components: {
+    AuthorizationForm
+  },
   data() {
     return {
       labels: [
@@ -71,7 +68,7 @@ export default {
         {clickFunction: this.createHabit, label: "Создать привычку"},
         {clickFunction: this.showHabitsList, label: "Зачекать привычку"},
         {clickFunction: this.clc, label: "Настройки"},
-        {clickFunction: this.clc, label: "Выйти"}],
+        {clickFunction: this.logout, label: "Выйти"}],
       showMenu: false
     }
   },
@@ -92,6 +89,10 @@ export default {
     },
     showProgressList() {
       this.$router.push({name: "progressList"});
+    },
+    async logout() {
+      await this.$store.dispatch("logout");
+      this.$router.push({name: "Home"});
     },
     clc() {
       return console.log("click");
