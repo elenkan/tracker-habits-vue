@@ -1,6 +1,10 @@
 <template>
   <li class="habit-item" :key="componentKey">
-    <span class="habit-item__name">{{ habit.name }}</span>
+    <div class="habit-item__data">
+      <span class="habit-item__name">{{ habit.name }}</span>
+      <span class="habit-item__description">{{ habit.description }}</span>
+    </div>
+
     <div class="days-list">
       <span v-for="day in daysList"
             class="days-list__item"
@@ -10,8 +14,12 @@
       </span>
     </div>
     <div class="habit-item__button-group">
-      <v-btn icon @click="changeHabit"><v-icon>mdi-pencil</v-icon></v-btn>
-      <v-btn icon @click="deleteHabit(habit.id)"><v-icon>mdi-delete</v-icon></v-btn>
+      <v-btn icon @click="changeHabit">
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+      <v-btn icon @click="deleteHabit(habit.id)">
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
     </div>
   </li>
 </template>
@@ -39,7 +47,7 @@ export default {
       return this.$store.getters.getHabitsList;
     },
     daysList() {
-      const list = new Array(21).fill({color: ""});
+      const list = new Array(this.habit.period).fill({color: ""});
       const daysArray = list.map(item => Object.assign({}, item));
       daysArray.forEach(item => {
         item.id = Math.random() * list.length;
@@ -70,21 +78,27 @@ export default {
     getProgressValue() {
       const checkedDays = this.daysList.slice().filter(item => item.color !== "");
       if (checkedDays.length > 0) {
-        const progressValue = Math.round(checkedDays.length / 21 * 100);
+        const progressValue = Math.round(checkedDays.length / this.habit.period * 100);
         const progressItem = {
           name: this.habit.name,
           value: progressValue,
           key: this.habit.id,
-          colorsValue: this.getColorValueArray(this.colorsValue)
+          colorsValue: this.getColorValueArray(this.colorsValue),
+          completedDays: checkedDays.length,
+          period: this.habit.period
         };
 
         if (this.progressData.every(item => item.name !== progressItem.name)) {
           this.progressData.push(progressItem);
         } else {
           this.progressData.forEach(item => {
+            // если поменяется имя
             if (item.name === progressItem.name) {
+              //добавить цикл
               item.colorsValue = progressItem.colorsValue;
               item.value = progressItem.value;
+              item.completedDays = progressItem.completedDays;
+              item.period = progressItem.period;
             }
           });
         }
@@ -106,7 +120,7 @@ export default {
       this.$router.push({name: "createHabit"});
     },
     deleteHabit(habitId) {
-      const filterList= this.habitsList.filter(item => item.id !== habitId);
+      const filterList = this.habitsList.filter(item => item.id !== habitId);
       this.$store.commit("setHabitsList", filterList);
     }
   }
@@ -119,13 +133,25 @@ export default {
   flex-direction: row;
   align-items: center;
   margin-bottom: 35px;
-  color: #272727;
+  color: #000;
   align-self: flex-start;
 
-  &__name {
+  &__data {
     width: 200px;
     max-width: 200px;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    font-family: "Montserrat-Regular", Arial, sans-serif;
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  &__name {
+    margin-bottom: 10px;
+  }
+
+  &__description {
+    font-size: 14px;
   }
 }
 
@@ -140,7 +166,7 @@ export default {
     border: 1px solid #89ccc5;
     text-align: center;
     vertical-align: middle;
-    margin-bottom: 20px;;
+    margin-bottom: 20px;
     border-radius: 50%;
     cursor: pointer;
     display: inline-block;

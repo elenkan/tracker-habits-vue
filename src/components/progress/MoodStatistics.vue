@@ -1,10 +1,12 @@
 <template>
   <div class="mood-statistics">
+    <h3 class="mood-statistics__title">График настроения</h3>
     <v-sparkline
         :value="data"
         :gradient="colorsList"
         :smooth="radius || false"
         :padding="padding"
+        label-size="12"
         height="210"
         gradient-direction="left"
         stroke-linecap="round"
@@ -17,7 +19,8 @@
       <li class="description-list__item"
           v-for="item in dataList"
           :key="item.id">
-        <span :style="{'background-color': item.color}"></span>{{ item.mood }}
+        <span class="description-list__color" :style="{'background-color': item.color}"></span>
+        <span class="description-list__name">{{ item.mood }}</span>
       </li>
     </ul>
   </div>
@@ -60,29 +63,45 @@ export default {
   height: 300px;
   background-color: #d7ebe9;
   border-radius: 10px;
-  padding: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-family: "Montserrat-Regular", Arial, sans-serif;
+    font-size: 18px;
+    line-height: 18px;
+  }
 }
 
 .description-list {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: flex-start;
+  width: 300px;
   max-height: 100px;
   flex-wrap: wrap;
   margin-top: 15px;
+  padding-left: 0;
 
   &__item {
     font-family: "Montserrat-Regular", Arial, sans-serif;
     font-size: 10px;
     line-height: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
 
     span {
       display: inline-block;
-      width: 50px;
+      width: 85px;
       height: 5px;
-      margin-right: 5px;
+      font-size: 11px;
     }
+  }
+  &__color {
+    margin-bottom: 5px;
   }
 }
 </style>

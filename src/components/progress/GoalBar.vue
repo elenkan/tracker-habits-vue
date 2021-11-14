@@ -1,10 +1,16 @@
 <template>
   <div class="goal-bar">
-    <v-progress-circular
-        :value="progressValue"
-        color="teal"
-        size="100">{{ progressValue + '%' }}
-    </v-progress-circular>
+    <div class="goal-bar__circle">
+      <h3 class="goal-bar__title">Прогресс выполнения</h3>
+      <v-progress-circular
+          :value="progressValue.value"
+          color="teal"
+          size="100">{{ progressValue.value + '%' }}
+      </v-progress-circular>
+    </div>
+    <div class="goal-bar__days">
+      Завершено дней <span>{{ progressValue.completedDays }}</span>{{ ` / ${progressValue.period}` }}
+    </div>
   </div>
 </template>
 
@@ -12,7 +18,7 @@
 export default {
   name: "GoalBar",
   props: {
-    progressValue: Number
+    progressValue: Object
   },
   data() {
     return {
@@ -39,5 +45,30 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &__title {
+    margin-bottom: 10px;
+    font-family: "Montserrat-Regular", Arial, sans-serif;
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  &__circle {
+    background-color: #d7ebe9;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  &__days {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #d7ebe9;
+    width: 100%;
+
+    span {
+      font-weight: bold;
+    }
+  }
 }
 </style>

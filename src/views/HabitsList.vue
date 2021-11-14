@@ -27,8 +27,8 @@ export default {
 .habits-page {
   display: flex;
   justify-content: flex-start;
-  width: 100%;
-  height: 100%;
+  //width: 100%;
+  //height: 100%;
 }
 
 .habits-list {

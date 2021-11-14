@@ -12,12 +12,14 @@
                v-bind="attrs"
                v-on="on"
                depressed
-               class="auth__button">Регистрация</v-btn>
+               class="auth__button">Регистрация
+        </v-btn>
         <v-btn @click="isNewUser=false"
                v-bind="attrs"
                v-on="on"
                depressed
-               class="auth__button">Войти</v-btn>
+               class="auth__button">Войти
+        </v-btn>
       </v-btn-toggle>
     </template>
     <v-card class="auth-form">
@@ -29,7 +31,8 @@
                color="#89ccc5"
                @click="showQuestMode"
                outlined
-               depressed>Войти как гость</v-btn>
+               depressed>Войти как гость
+        </v-btn>
         <span class="auth-form__divider">Или</span>
         <v-text-field
             v-if="isNewUser"
@@ -137,6 +140,8 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 20px 60px 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 12px -4px #bababa;
 
     &__guest-button {
       margin-bottom: 20px;

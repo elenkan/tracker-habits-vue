@@ -31,7 +31,6 @@ export default {
 
 <style scoped lang="scss">
 .mood {
-  border: 2px solid #89ccc5;
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -42,7 +41,9 @@ export default {
   line-height: 16px;
   color: #272727;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 1px 12px -4px #bababa;
 }
 .mood__title {
   margin-bottom: 20px;
@@ -52,6 +53,7 @@ export default {
 .mood-list {
   display: flex;
   flex-direction: column;
+  padding-left: 0;
 
   &__item {
     display: flex;

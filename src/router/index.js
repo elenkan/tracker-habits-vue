@@ -4,6 +4,7 @@ import HomePage from '../views/HomePage.vue'
 import CreateHabit from '../views/CreateHabit'
 import HabitsList from '../views/HabitsList'
 import ProgressList from '../views/ProgressList'
+import SettingsPage from "../views/SettingsPage";
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/progress',
     name: 'progressList',
     component: ProgressList
+  },
+  {
+    path: '/settings',
+    name: 'settingsPage',
+    component: SettingsPage
   }
 ]
 

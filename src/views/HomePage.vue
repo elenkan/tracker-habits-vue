@@ -17,8 +17,8 @@ export default {
 
 <style scoped lang="scss">
 .home-page {
-  width: 100%;
-  height: 100%;
+  //width: 100%;
+  //height: 100%;
   background-color: #d7ebe9;
   display: flex;
   flex-direction: column;

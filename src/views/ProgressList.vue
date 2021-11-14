@@ -2,9 +2,11 @@
   <div class="progress-list">
     <div class="progress-list__item" v-for="item in progressData" :key="item.key">
       <h2 class="progress-list__title">{{ item.name }}</h2>
-      <GoalBar :progressValue="item.value"/>
-      <MoodStatistics class="progress-list__mood-line"
-                      :data="item.colorsValue"/>
+      <div class="progress-list__content">
+        <GoalBar :progressValue="item"/>
+        <MoodStatistics class="progress-list__mood-line"
+                        :data="item.colorsValue"/>
+      </div>
     </div>
   </div>
 </template>
@@ -34,23 +36,27 @@ export default {
 <style lang="scss" scoped>
 .progress-list {
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   font-family: "Montserrat-Regular", Arial, sans-serif;
   font-size: 16px;
   line-height: 16px;
   color: #272727;
+  margin-top: 90px;
 
   &__item {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 2px solid #89ccc5;
+    width: 550px;
+    background-color: #fff;
+    box-shadow: 0 1px 12px -4px #bababa;
     border-radius: 10px;
     flex-wrap: wrap;
-    padding: 10px;
+    padding: 15px;
     margin-right: 20px;
+    margin-bottom: 20px;
   }
 
   &__title {
@@ -58,10 +64,15 @@ export default {
     margin-bottom: 20px;
   }
 
+  &__content {
+    display: flex;
+    align-items: center;
+  }
+
   &__mood-line {
     width: 350px;
     height: 380px;
-    margin-left: 20px;
+    margin-left: 15px;
   }
 }
 </style>

@@ -67,7 +67,7 @@ export default {
         {clickFunction: this.showProgressList, label: "Прогресс"},
         {clickFunction: this.createHabit, label: "Создать привычку"},
         {clickFunction: this.showHabitsList, label: "Зачекать привычку"},
-        {clickFunction: this.clc, label: "Настройки"},
+        {clickFunction: this.showPageSettings, label: "Настройки"},
         {clickFunction: this.logout, label: "Выйти"}],
       showMenu: false
     }
@@ -81,21 +81,26 @@ export default {
     }
   },
   methods: {
+    goToPage(name) {
+      if (this.$route.name !== name) {
+        this.$router.push({name});
+      }
+    },
     createHabit() {
-      this.$router.push({name: "createHabit"});
+      this.goToPage("createHabit");
     },
     showHabitsList() {
-      this.$router.push({name: "habitsList"});
+      this.goToPage("habitsList");
     },
     showProgressList() {
-      this.$router.push({name: "progressList"});
+      this.goToPage("progressList");
     },
     async logout() {
       await this.$store.dispatch("logout");
       this.$router.push({name: "Home"});
     },
-    clc() {
-      return console.log("click");
+    showPageSettings() {
+      this.goToPage("settingsPage");
     }
   }
 }

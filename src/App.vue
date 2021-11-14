@@ -1,11 +1,9 @@
 <template>
   <v-app>
-    <div id="app">
-      <Header/>
-      <mood-list v-if="showMoodList"/>
-      <div class="content">
-        <router-view/>
-      </div>
+    <Header/>
+    <mood-list v-if="showMoodList"/>
+    <div class="content">
+      <router-view/>
     </div>
   </v-app>
 </template>
@@ -56,9 +54,12 @@ export default {
   url("../src/assets/fonts/Raleway-Medium.ttf") format("truetype");
 }
 
-html, body {
-  width: 100vw;
+html {
   height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 #app {
@@ -72,8 +73,12 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  //width: 100vw;
   height: 100vh;
+
+  .v-application--wrap {
+    width: 100%;
+  }
 }
 
 ul {
@@ -81,12 +86,12 @@ ul {
 }
 
 .content {
-  width: 100vw;
-  height: 100vh;
+  //width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f8f8f8;
+  margin-top: 70px;
+  //background-color: #f8f8f8;
   //margin-top: 50px;
 }
 </style>
